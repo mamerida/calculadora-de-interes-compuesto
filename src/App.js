@@ -1,7 +1,9 @@
 import styled from "styled-components";
+import { useState } from "react";
 import { Formik,Form } from "formik";
 import Input from './components/Input';
 import Button from './components/Button';
+import Balance from './components/Balance';
 
 const Container = styled.div`
   display: flex;
@@ -30,12 +32,25 @@ const compoundInterets = (deposito,contribution,years,rate) =>{
 }
 
 
+const formatter = new Intl.NumberFormat('en-US',{
+  style:'currency',
+  currency:'USD',
+  minimumFractionDigits:2,
+  maximumFractionDigits:2,
+})
+
+function App() {
+
+//para poder mostrar el valance tengo que usar useState
+
+const[balance,setBalance] = useState("")
+
 const handleSubmit = ({deposit,contribution,years,rate}) =>{
   //como los valores vienen como texto tengo que castearlo a number
     const val = compoundInterets(Number(deposit),Number(contribution),Number(years),Number(rate))
-    console.log(val)
+    setBalance(formatter.format(val))
+    
 }
-function App() {
 
 
   return (
@@ -57,8 +72,8 @@ function App() {
             <Input name="rate" label="Interes Estimado" />
             <Button>Calcular</Button>
           </Form>
-
         </Formik>
+        {balance !== "" ? <Balance>Balance Final: {balance} </Balance> : null}
       </Section>
     </Container>
   );
