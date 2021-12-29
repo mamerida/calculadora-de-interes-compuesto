@@ -37,6 +37,9 @@ function App() {
         >
           <Form>
             <Input name="deposit" label="Deposito Inicial" />
+            <Input name="contribution" label="Contribucion Anual" />
+            <Input name="years" label="Años" />
+            <Input name="rate" label="Interes Estimado" />
           </Form>
 
         </Formik>
