@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { Formik,Form } from "formik";
+import * as Yup from 'yup'; 
 import Input from './components/Input';
 import Button from './components/Button';
 import Balance from './components/Balance';
@@ -64,13 +65,28 @@ const handleSubmit = ({deposit,contribution,years,rate}) =>{
             rate:"",
           }}
           onSubmit={handleSubmit}
+          // propiedad propia de yup
+          //yup genera un objeto que se validan segun un esquema de datos en este caso las propiedades del formulario
+          //con la funcion object Yup toma un objeto que revisa las propiedades que debe tener para pasar la validacion
+          //en este caos Yup.number() valida que sea un numero que retorna un objeto y puedo concatenar propiedades
+          //type error concatenado a la propiedad muestra el mensaje de error 
+          //min muestra el valor minimo del campo y max el valor maximo 
+          // en caso de querer personalizar el mensaje de error se lo pasa como argumento a la funcion que genera la validacion 
+          
+
+          validationSchema={Yup.object({
+            deposit: Yup.number().required('obligatorio').typeError("El dato ingresado debe ser un numero"),
+            contribution: Yup.number().required('obligatorio').typeError("El dato ingresado debe ser un numero"),
+            years: Yup.number().required('obligatorio').typeError("El dato ingresado debe ser un numero"),
+            rate: Yup.number().required('obligatorio').typeError("El dato ingresado debe ser un numero").min(0,"El valor debe ser positivo ").max(1,"El valor debe ser menor que uno "),
+          })}
         >
           <Form>
             <Input name="deposit" label="Deposito Inicial" />
             <Input name="contribution" label="Contribucion Anual" />
             <Input name="years" label="Años" />
             <Input name="rate" label="Interes Estimado" />
-            <Button>Calcular</Button>
+            <Button type="submit">Calcular</Button>
           </Form>
         </Formik>
         {balance !== "" ? <Balance>Balance Final: {balance} </Balance> : null}
