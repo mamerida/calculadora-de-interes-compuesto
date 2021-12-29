@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import { Formik,Form } from "formik";
 import Input from './components/Input';
+import Button from './components/Button';
 
 const Container = styled.div`
   display: flex;
   justify-content: center ;
   align-items: center;
-  heigth: 100%;
+  height: 100%;
   
 `
 const Section = styled.section`
@@ -40,6 +41,7 @@ function App() {
             <Input name="contribution" label="Contribucion Anual" />
             <Input name="years" label="Años" />
             <Input name="rate" label="Interes Estimado" />
+            <Button>Calcular</Button>
           </Form>
 
         </Formik>
