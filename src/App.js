@@ -3,8 +3,9 @@ import styled from "styled-components";
 const Container = styled.div`
   display: flex;
   justify-content: center ;
-  heigth: 100%;
   align-items: center;
+  heigth: 100%;
+  
 `
 const Section = styled.section`
   background-color:#eee;
